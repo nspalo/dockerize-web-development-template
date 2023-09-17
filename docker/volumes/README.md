@@ -9,20 +9,23 @@
 ```
 my-project/                       // Main Project Directory
 ├── docker/                       // Docker Related
+│   ├── ...
 │   ├── volumes/                  // Volumes Dir - Data persistence
-│   │   ├── <database>
+│   │   ├── <database>/
 │   │   │   └── <database>_<version>
-│   │   ├── mysql
+│   │   ├── mysql/
 │   │   │   ├── mysql_5.6
 │   │   │   └── mysql_7.0
-│   │   ├── pgsql
+│   │   ├── pgsql/
 │   │   │   └── pgsql_<version>
-│   │   ├── mariadb
+│   │   ├── mariadb/
 │   │   │   └── mariadb_<version>
-│   │   ├── mssql
+│   │   ├── mssql/
 │   │   │   └── mssql_<version>
-│   │   ├── mongodb
+│   │   ├── mongodb/
 │   │   │   └── mongodb_<version>
-│   │   ├── oracle
+│   │   ├── oracle/
 │   │   │   └── oracle_<version>
+│   └── ...
+└── ...
 ```

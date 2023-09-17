@@ -29,4 +29,5 @@ my-project/                       // Main Project Directory
 │   │       └── mysql_<version>  // Specific database version
 │   ├── docker-compose.yml       // Main Docker compose file
 │   └── Dockerfile               // Main Dockerfile
+└── ...
 ```
