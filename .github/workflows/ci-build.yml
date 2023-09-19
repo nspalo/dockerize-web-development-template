@@ -26,43 +26,57 @@ jobs:
     - name: Setting up Permissions
       run: |
         chmod +x -R ./scripts/*.sh
-        # mkdir -p ./storage/logs/ ./bootstrap/cache/ # Skipping this since there is no dir structure yet for this
-        # chmod 777 ./storage/ ./bootstrap/cache -R   # Same with this
+        # mkdir -p ./storage/logs/ ./bootstrap/cache/ # Skipping, there is no dir structure yet
+        # chmod 777 ./storage/ ./bootstrap/cache -R   # Yup, same with this one
 
     # Building Docker Images and Service Containers
-    - name: Building the Docker Images
+    - name: Building Docker Images
       run: ./scripts/build.sh
 
     # Docker Containers
     - name: Start Docker Containers
       run: ./scripts/up.sh -d
 
+    # TODO:
+    #  - Skipping the steps below. There is no code yet so...
+    #
+    # TODO:
+    #  - This section is not needed yet!
     # Composer Set-up
-    - name: Run Composer
-      run: |
-        ./scripts/composer.sh install
-        # ./scripts/composer.sh run post-root-package-install # This section is not needed yet!
-        # ./scripts/composer.sh run post-create-project-cmd   # Yup, same with this one.
-
+    #- name: Run Composer
+    #  run: |
+    #   ./scripts/composer.sh install
+    #   ./scripts/composer.sh run post-root-package-install
+    #   ./scripts/composer.sh run post-create-project-cmd
+    #
+    # TODO:
+    #  - This section is not needed yet!
+    #  - No resource to build yet!!!
     # NPM Set-up
-    - name: Run NPM
-      run: |
-        ./scripts/run.sh npm install
-        # ./scripts/run.sh npm run build # Skip no resource to build yet!!!
-
+    #- name: Run NPM
+    #  run: |
+    #    ./scripts/run.sh npm install
+    #    ./scripts/run.sh npm run build
+    #
+    # TODO:
+    #  - This section is not needed yet!
+    #  - No PhpStan, ECS, & PhpUnit yet in this part of this template
     # Code Quality Checking
-    # TODO: Skip Code Quality! There is no code yet so...
-    #   - This part will be skipped, No PhpStan, ECS, & PhpUnit yet in this part of this template
     #- name: Run PhpStan
     #  run: ./scripts/composer.sh run phpstan
     #
+    # TODO:
+    #  - This section is not needed yet!
     #- name: Run Easy Coding Sandards
     #  run: ./scripts/composer.sh run ecs-all
     #
+    # TODO:
+    #  - This section is not needed yet!
     #- name: Run Automated Test with PhpUnit
     #  run: ./scripts/composer.sh run phpunit
+    #
     # TODO: Ends Here!
 
     # Teardown routine, clean after yourself!
-    - name: Stop container and remove images
+    - name: Teardown, stopping and removing services
       run: ./scripts/down.sh -v
