@@ -1,5 +1,7 @@
 # Dockerized Web Development Template
-A simple project that aims to build a Dockerized template environment for web development
+> A simple project that aims to build a Dockerized template environment for web development
+
+![CI BUILD](https://github.com/nspalo/dockerize-web-development-template/actions/workflows/ci-build.yml/badge.svg)
 
 ## Directory Structure
 - Below is an overview of how the project directory structure would look like.
