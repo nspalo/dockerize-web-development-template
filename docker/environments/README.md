@@ -8,11 +8,11 @@
 my-project/                       // Main Project Directory
 ├── docker/                       // Docker Related
 │   ├── ...
-│   ├── enviroments/              // Environment variables
-│   │   ├── config.env            // Main config file
-│   │   ├── local.env             // Local Database credentials or configs
-│   │   ├── staging.env           // Staging Database credentials or configs
-│   │   └── prod.env              // Prod Database credentials or configs
+│   ├── enviroments/               // Environment variables
+│   │   ├── config.env             // Main config file
+│   │   ├── local.env              // Local Database credentials or configs
+│   │   ├── test.env               // Test/Staging Database credentials or configs
+│   │   └── prod.env               // Prod Database credentials or configs
 │   └── ...
 └── ...
 ```
