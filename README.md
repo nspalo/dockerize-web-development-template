@@ -36,6 +36,8 @@ my-project/                       // Main Project Directory
 │   ├── down.sh
 │   └── *.sh
 ├── src/                          // Project source code here...
+│   └── public/                   // temporary directory just for initial set up
+│       └── index.php             // default file just to make sure things work, shows phpinfo
 ├──========================================================================
 │       Or to separete the source code for frontend and backend,
 │       instead of src/ you could also use the structure below
