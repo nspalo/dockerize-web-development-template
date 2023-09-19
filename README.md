@@ -1,45 +1,56 @@
 # Dockerized Web Development Template
-A simple project that aims to build a Dockerized environment repository for web development
+> A simple project that aims to build a Dockerized template environment for web development
+
+![CI BUILD](https://github.com/nspalo/dockerize-web-development-template/actions/workflows/ci-build.yml/badge.svg)
 
 ## Directory Structure
 - Below is an overview of how the project directory structure would look like.
 - Add / Remove / Rename according to the needs or liking or whatever make sense.
 ```
-my-project/                       // Main Project Directory
-├── docker/                       // Docker Related
-│   ├── containers/               // Service Containers
+my-project/                        // Main Project Directory
+├── docker/                        // Docker Related
+│   ├── containers/                // Service Containers
 │   │   ├── nginx
 │   │   │   ├── conf.d
-│   │   │   │   └── default.conf  // nginx config
+│   │   │   │   └── default.conf   // nginx config
 │   │   │   └── Dockerfile
 │   │   ├── php
-│   │   │   ├── php.ini           // PHP config
+│   │   │   ├── config             // PHP Configurations
+│   │   │   │   └── php-local.ini  // local development configuration
+│   │   │   │   └── php-test.ini   // test/staging configuration
+│   │   │   │   └── php-prod.ini   // production specific configuration
 │   │   │   └── Dockerfile
 │   │   ├── mysql
 │   │   │   └── Dockerfile
 │   │   └── composer
 │   │       └── Dockerfile
-│   ├── enviroments/              // Environment variables
-│   │   ├── config.env            // Main config file
-│   │   ├── local.env             // Environment config file
+│   ├── enviroments/               // Environment variables
+│   │   ├── config.env             // Main config file
+│   │   ├── local.env              // Local development
 │   │   ├── test.env
 │   │   └── prod.env
-│   ├── volumes/                  // Volumes Dir - Data persistence
-│   │   └── mysql                 // Database
-│   │       └── mysql_<version>   // Specific database version
-│   ├── docker-compose.yml        // Main Docker compose file
-│   └── Dockerfile                // Main Dockerfile
-├── scripts/                      // This should contains all *.sh files 
-│   ├── main-docker-compose.sh    // Main script that executes the base docker command
-│   ├── build.sh
-│   ├── up.sh
-│   ├── down.sh
+│   ├── volumes/                   // Volumes Dir - Data persistence
+│   │   └── mysql                  // Database
+│   │       └── mysql_<version>    // Specific database version
+│   └── docker-compose.yml         // Main Docker compose file
+├── scripts/                       // This should contains all *.sh files 
+│   ├── main-docker-compose.sh     // Main script that executes the base docker commands
+│   ├── build.sh                   // Build the docker images 
+│   ├── up.sh                      // Start the service
+│   ├── down.sh                    // Tear down routine
+│   ├── stop.sh                    // Stop running service
+│   ├── run.sh                     // Run a specific container
+│   ├── exec.sh                    // Run command inside a container
+│   ├── composer.sh                // Run composer and its command
+│   ├── prune.sh                   // Remove all images, run with care!
 │   └── *.sh
-├── src/                          // Project source code here...
-├──========================================================================
-│       Or to separete the source code for frontend and backend,
-│       instead of src/ you could also use the structure below
-├──========================================================================
-├── frontend(-src)/               // Front-end source code only
-└── backend(-src)/                // Back-end source code only
+├── src/                           // Project source code here...
+│   └── public/                    // temporary directory just for initial set up
+│       └── index.php              // default file just to make sure things work, shows phpinfo
+├──────────────────────────────────────────────────────────────────────────────────────────────
+│       Or have a separete the source directory code for frontend and backend,
+│       instead of just src/ to hold all the code. The structure below could be use.
+├──────────────────────────────────────────────────────────────────────────────────────────────
+├── frontend(-src)/                // Front-end source code only
+└── backend(-src)/                 // Back-end source code only
 ```
