@@ -8,11 +8,16 @@
 ```
 my-project/                      // Main Project Directory
 ├── ...
-├── scripts/                     // This should contains all *.sh files 
-│   ├── main-docker-compose.sh   // Main script that executes the base docker command
-│   ├── build.sh
-│   ├── up.sh
-│   ├── down.sh
+├── scripts/                       // This should contains all *.sh files 
+│   ├── main-docker-compose.sh     // Main script that executes the base docker commands
+│   ├── build.sh                   // Build the docker images 
+│   ├── up.sh                      // Start the service
+│   ├── down.sh                    // Tear down routine
+│   ├── stop.sh                    // Stop running service
+│   ├── run.sh                     // Run a specific container
+│   ├── exec.sh                    // Run command inside a container
+│   ├── composer.sh                // Run composer and its command
+│   ├── prune.sh                   // Remove all images, run with care!
 │   ├── *.sh
 │   └── ...
 └── ...

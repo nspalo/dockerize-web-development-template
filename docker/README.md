@@ -13,21 +13,23 @@ my-project/                       // Main Project Directory
 │   │   │   │   └── default.conf  // nginx config
 │   │   │   └── Dockerfile
 │   │   ├── php
-│   │   │   ├── php.ini           // PHP config
+│   │   │   ├── config             // PHP Configurations
+│   │   │   │   └── php-local.ini  // local development configuration
+│   │   │   │   └── php-test.ini   // test/staging configuration
+│   │   │   │   └── php-prod.ini   // production specific configuration
 │   │   │   └── Dockerfile
 │   │   ├── mysql
 │   │   │   └── Dockerfile
 │   │   └── composer
 │   │       └── Dockerfile
-│   ├── enviroments/             // Environment variables
-│   │   ├── config.env           // Main config file
-│   │   ├── local.env            // Environment config file
+│   ├── enviroments/               // Environment variables
+│   │   ├── config.env             // Main config file
+│   │   ├── local.env              // Environment config file
 │   │   ├── test.env
 │   │   └── prod.env
-│   ├── volumes/                 // Volumes Dir - Data persistence
-│   │   └── mysql                // Database
-│   │       └── mysql_<version>  // Specific database version
-│   ├── docker-compose.yml       // Main Docker compose file
-│   └── Dockerfile               // Main Dockerfile
+│   ├── volumes/                   // Volumes Dir - Data persistence
+│   │   └── mysql                  // Database
+│   │       └── mysql_<version>    // Specific database version
+│   └── docker-compose.yml         // Main Docker compose file
 └── ...
 ```
