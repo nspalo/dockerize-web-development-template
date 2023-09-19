@@ -1,0 +1,68 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ "master", "development" ]
+  pull_request:
+    branches: [ "master", "development" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    # Docker Credentials
+    - name: Docker Login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_KEY: ${{ secrets.DOCKER_KEY }}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_KEY
+
+    # Setting Script Permissions
+    - name: Setting up Permissions
+      run: |
+        chmod +x -R ./scripts/*.sh
+        # mkdir -p ./storage/logs/ ./bootstrap/cache/ # Skipping this since there is no dir structure yet for this
+        # chmod 777 ./storage/ ./bootstrap/cache -R   # Same with this
+
+    # Building Docker Images and Service Containers
+    - name: Building the Docker Images
+      run: ./scripts/build.sh
+
+    # Docker Containers
+    - name: Start Docker Containers
+      run: ./scripts/up.sh -d
+
+    # Composer Set-up
+    - name: Run Composer
+      run: |
+        ./scripts/composer.sh install
+        # ./scripts/composer.sh run post-root-package-install # This section is not needed yet!
+        # ./scripts/composer.sh run post-create-project-cmd   # Yup, same with this one.
+
+    # NPM Set-up
+    - name: Run NPM
+      run: |
+        ./scripts/run.sh npm install
+        # ./scripts/run.sh npm run build # Skip no resource to build yet!!!
+
+    # Code Quality Checking
+    # TODO: Skip Code Quality! There is no code yet so...
+    #   - This part will be skipped, No PhpStan, ECS, & PhpUnit yet in this part of this template
+    #- name: Run PhpStan
+    #  run: ./scripts/composer.sh run phpstan
+    #
+    #- name: Run Easy Coding Sandards
+    #  run: ./scripts/composer.sh run ecs-all
+    #
+    #- name: Run Automated Test with PhpUnit
+    #  run: ./scripts/composer.sh run phpunit
+    # TODO: Ends Here!
+
+    # Teardown routine, clean after yourself!
+    - name: Stop container and remove images
+      run: ./scripts/down.sh -v
