@@ -30,8 +30,11 @@ my-project/                        // Main Project Directory
 │   │   ├── test.env
 │   │   └── prod.env
 │   ├── volumes/                   // Volumes Dir - Data persistence
-│   │   └── mysql/                 // Database
-│   │       └── mysql_<version>/   // Specific database version
+│   │   ├── mysql/                 // Database
+│   │   │   └── mysql_<version>    // Specific database version
+│   │   └── logs/                  // Logs
+│   │       ├── nginx/
+│   │       └── php/
 │   └── docker-compose.yml         // Main Docker compose file
 ├── scripts/                       // This should contains all *.sh files 
 │   ├── main-docker-compose.sh     // Main script that executes the base docker commands

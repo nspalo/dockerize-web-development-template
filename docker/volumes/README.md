@@ -26,6 +26,9 @@ my-project/                       // Main Project Directory
 │   │   │   └── mongodb_<version>/
 │   │   ├── oracle/
 │   │   │   └── oracle_<version>/
+│   │   └── logs/
+│   │       ├── nginx/
+│   │       └── php/
 │   └── ...
 └── ...
 ```
