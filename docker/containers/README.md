@@ -9,11 +9,11 @@ my-project/                       // Main Project Directory
 ├── docker/                       // Docker Related
 │   ├── containers/               // Service Containers
 │   │   ├── nginx/
-│   │   │   ├── conf.d
+│   │   │   ├── conf.d/
 │   │   │   │   └── default.conf  // nginx config
 │   │   │   └── Dockerfile
 │   │   ├── php/
-│   │   │   ├── config             // PHP Configurations
+│   │   │   ├── config/            // PHP Configurations
 │   │   │   │   └── php-local.ini  // local development configuration
 │   │   │   │   └── php-test.ini   // test/staging configuration
 │   │   │   │   └── php-prod.ini   // production specific configuration
