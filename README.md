@@ -10,19 +10,19 @@
 my-project/                        // Main Project Directory
 ├── docker/                        // Docker Related
 │   ├── containers/                // Service Containers
-│   │   ├── nginx
-│   │   │   ├── conf.d
+│   │   ├── nginx/
+│   │   │   ├── conf.d/
 │   │   │   │   └── default.conf   // nginx config
 │   │   │   └── Dockerfile
-│   │   ├── php
+│   │   ├── php/
 │   │   │   ├── config             // PHP Configurations
 │   │   │   │   └── php-local.ini  // local development configuration
 │   │   │   │   └── php-test.ini   // test/staging configuration
 │   │   │   │   └── php-prod.ini   // production specific configuration
 │   │   │   └── Dockerfile
-│   │   ├── mysql
+│   │   ├── mysql/
 │   │   │   └── Dockerfile
-│   │   └── composer
+│   │   └── composer/
 │   │       └── Dockerfile
 │   ├── enviroments/               // Environment variables
 │   │   ├── config.env             // Main config file
@@ -30,8 +30,8 @@ my-project/                        // Main Project Directory
 │   │   ├── test.env
 │   │   └── prod.env
 │   ├── volumes/                   // Volumes Dir - Data persistence
-│   │   └── mysql                  // Database
-│   │       └── mysql_<version>    // Specific database version
+│   │   └── mysql/                 // Database
+│   │       └── mysql_<version>/   // Specific database version
 │   └── docker-compose.yml         // Main Docker compose file
 ├── scripts/                       // This should contains all *.sh files 
 │   ├── main-docker-compose.sh     // Main script that executes the base docker commands

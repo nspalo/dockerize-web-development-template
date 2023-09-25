@@ -8,17 +8,17 @@
 my-project/                       // Main Project Directory
 ├── docker/                       // Docker Related
 │   ├── containers/               // Service Containers
-│   │   ├── nginx
-│   │   │   ├── conf.d
+│   │   ├── nginx/
+│   │   │   ├── conf.d/
 │   │   │   │   └── default.conf  // nginx config
 │   │   │   └── Dockerfile
-│   │   ├── php
-│   │   │   ├── config             // PHP Configurations
+│   │   ├── php/
+│   │   │   ├── config/            // PHP Configurations
 │   │   │   │   └── php-local.ini  // local development configuration
 │   │   │   │   └── php-test.ini   // test/staging configuration
 │   │   │   │   └── php-prod.ini   // production specific configuration
 │   │   │   └── Dockerfile
-│   │   ├── mysql
+│   │   ├── mysql/
 │   │   │   └── Dockerfile
 │   │   └── composer
 │   │       └── Dockerfile
@@ -28,7 +28,7 @@ my-project/                       // Main Project Directory
 │   │   ├── test.env
 │   │   └── prod.env
 │   ├── volumes/                   // Volumes Dir - Data persistence
-│   │   └── mysql                  // Database
+│   │   └── mysql/                 // Database
 │   │       └── mysql_<version>    // Specific database version
 │   └── docker-compose.yml         // Main Docker compose file
 └── ...

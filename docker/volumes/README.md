@@ -12,20 +12,20 @@ my-project/                       // Main Project Directory
 │   ├── ...
 │   ├── volumes/                  // Volumes Dir - Data persistence
 │   │   ├── <database>/
-│   │   │   └── <database>_<version>
+│   │   │   └── <database>_<version>/
 │   │   ├── mysql/
-│   │   │   ├── mysql_5.6
-│   │   │   └── mysql_7.0
+│   │   │   ├── mysql_5.6/
+│   │   │   └── mysql_7.0/
 │   │   ├── pgsql/
-│   │   │   └── pgsql_<version>
+│   │   │   └── pgsql_<version>/
 │   │   ├── mariadb/
-│   │   │   └── mariadb_<version>
+│   │   │   └── mariadb_<version>/
 │   │   ├── mssql/
-│   │   │   └── mssql_<version>
+│   │   │   └── mssql_<version>/
 │   │   ├── mongodb/
-│   │   │   └── mongodb_<version>
+│   │   │   └── mongodb_<version>/
 │   │   ├── oracle/
-│   │   │   └── oracle_<version>
+│   │   │   └── oracle_<version>/
 │   └── ...
 └── ...
 ```
