@@ -20,7 +20,7 @@ my-project/                       // Main Project Directory
 │   │   │   └── Dockerfile
 │   │   ├── mysql/
 │   │   │   └── Dockerfile
-│   │   └── composer
+│   │   └── composer/
 │   │       └── Dockerfile
 │   ├── enviroments/               // Environment variables
 │   │   ├── config.env             // Main config file
@@ -28,8 +28,11 @@ my-project/                       // Main Project Directory
 │   │   ├── test.env
 │   │   └── prod.env
 │   ├── volumes/                   // Volumes Dir - Data persistence
-│   │   └── mysql/                 // Database
-│   │       └── mysql_<version>    // Specific database version
+│   │   ├── mysql/                 // Database
+│   │   │   └── mysql_<version>    // Specific database version
+│   │   └── logs/                  // Logs
+│   │       ├── nginx/
+│   │       └── php/
 │   └── docker-compose.yml         // Main Docker compose file
 └── ...
 ```
