@@ -29,7 +29,7 @@ my-project/                       // Main Project Directory
 │   │   └── prod.env
 │   ├── volumes/                   // Volumes Dir - Data persistence
 │   │   ├── mysql/                 // Database
-│   │   │   └── mysql_<version>    // Specific database version
+│   │   │   └── mysql_<version>/   // Specific database version
 │   │   └── logs/                  // Logs
 │   │       ├── nginx/
 │   │       └── php/
