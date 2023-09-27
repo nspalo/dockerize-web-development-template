@@ -15,7 +15,7 @@ my-project/                        // Main Project Directory
 │   │   │   │   └── default.conf   // nginx config
 │   │   │   └── Dockerfile
 │   │   ├── php/
-│   │   │   ├── config             // PHP Configurations
+│   │   │   ├── config/            // PHP Configurations
 │   │   │   │   └── php-local.ini  // local development configuration
 │   │   │   │   └── php-test.ini   // test/staging configuration
 │   │   │   │   └── php-prod.ini   // production specific configuration
@@ -31,7 +31,7 @@ my-project/                        // Main Project Directory
 │   │   └── prod.env
 │   ├── volumes/                   // Volumes Dir - Data persistence
 │   │   ├── mysql/                 // Database
-│   │   │   └── mysql_<version>    // Specific database version
+│   │   │   └── mysql_<version>/   // Specific database version
 │   │   └── logs/                  // Logs
 │   │       ├── nginx/
 │   │       └── php/
