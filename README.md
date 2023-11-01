@@ -104,5 +104,12 @@ Building, Running, Stopping, Removing images and service containers
 > ./scripts/run.sh npm run build
 ```
 
+## Host file
+Optionally, update the host file
+```
+# Local Dev
+172.0.0.1 my-website.local
+```
+
 ## Accessing the site
-Hit the browser at `localhost:8080`
+Hit the browser at `localhost` or `my-website.local` (*if host file was updated*).
