@@ -1,8 +1,16 @@
-version: '3.8'
+# Dockerize Web Development Template (DWDT)
 
+# =====================================================================
+# 1. NETWORKS
+# =====================================================================
 networks:
   web-app:
+    # Explicitly names the network using the COMPOSE_PROJECT_NAME variable
+    name: ${COMPOSE_PROJECT_NAME}_app_net
 
+# =====================================================================
+# 2. SERVICES
+# =====================================================================
 services:
   # +----------------------+ #
   # | Container: NginX     | #
@@ -21,6 +29,10 @@ services:
       - "${PATH_CONFIGS_NGINX}:/etc/nginx/conf.d/default.conf"
       - "${PATH_VOLUMES_LOGS}/nginx:/var/log/nginx"
       - "${PATH_SOURCE_LOCAL}:${PATH_SOURCE_LIVE}"
+      # Vendor volume overlay
+      - vendor_data:/var/www/html/vendor
+      # Node Modules volume overlay
+      - node_modules_data:/var/www/html/node_modules
     depends_on:
       - php
       - database
@@ -83,11 +95,18 @@ services:
     build:
       context: .
       dockerfile: containers/composer/Dockerfile
+      # FIX: This crucial block forces the 'php' service to be built first,
+      # and makes the resulting image available to the composer Dockerfile
+      # under the alias 'base'.
+      additional_contexts:
+        base: service:php
     image: composer:composer-2.6.1
     working_dir: /var/www/html
     volumes:
       - "${PATH_CONFIGS_PHP}:/usr/local/etc/php/php.ini"
       - "${PATH_SOURCE_LOCAL}:${PATH_SOURCE_LIVE}"
+      # CRITICAL: Composer installs dependencies directly into this fast volume
+      - vendor_data:/var/www/html/vendor
     depends_on:
       - php
     entrypoint: ['composer']
@@ -103,10 +122,12 @@ services:
     working_dir: /var/www/html
     volumes:
       - "${PATH_SOURCE_LOCAL}:${PATH_SOURCE_LIVE}"
+      # NEW: Overlays the node_modules directory with a fast Docker volume
+      - node_modules_data:/var/www/html/node_modules
     depends_on:
       - php
     entrypoint: ['npm']
-#
+
 #  # +----------------------+ #
 #  # | Container: Artisan   | #
 #  # +----------------------+ #
@@ -117,7 +138,11 @@ services:
 #    build:
 #      context: .
 #      dockerfile: containers/php/Dockerfile
-#    image: artisan:laravel-9
+#      # FIX: This crucial block forces the 'php' service to be built first,
+#      # and makes the resulting image available to artisan container
+#      additional_contexts:
+#        base: service:php
+#    image: artisan:laravel-XXX # name it with whatever that makes sense for you
 #    links:
 #      - php
 #      - database
@@ -126,7 +151,20 @@ services:
 #    working_dir: /var/www/html
 #    volumes:
 #      - "${PATH_SOURCE_LOCAL}:${PATH_SOURCE_LIVE}"
+#      # Must include vendor data so Artisan can execute PHP dependencies
+#      - vendor_data:/var/www/html/vendor
 #    depends_on:
 #      - php
 #      - database
 #    entrypoint: ['php', '/var/www/html/artisan']
+
+# =====================================================================
+# 3. VOLUMES
+# =====================================================================
+volumes:
+  # Dedicated volume for Composer dependencies (vendor folder)
+  vendor_data:
+    driver: local
+  # Dedicated volume for NPM/Node dependencies (node_modules folder)
+  node_modules_data:
+    driver: local
