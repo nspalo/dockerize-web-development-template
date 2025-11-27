@@ -24,7 +24,7 @@ my-project/                       // Main Project Directory
 │   │   │   └── Dockerfile
 │   │   └── composer/
 │   │       └── Dockerfile
-│   ├── enviroments/               // Environment variables
+│   ├── environments/              // Environment variables
 │   │   ├── config.env             // Main config file
 │   │   ├── local.env              // Environment config file
 │   │   ├── test.env
