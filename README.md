@@ -11,8 +11,8 @@ my-project/                        // Main Project Directory
 ├── docker/                        // Docker Related
 │   ├── containers/                // Service Containers
 │   │   ├── nginx/
-│   │   │   ├── conf.d/
-│   │   │   │   └── default.conf   // nginx config
+│   │   │   ├── conf.d/           // NginX Configurations
+│   │   │   │   └── default.conf  // default configuration file
 │   │   │   └── Dockerfile
 │   │   ├── php/
 │   │   │   ├── config/            // PHP Configurations
@@ -21,6 +21,8 @@ my-project/                        // Main Project Directory
 │   │   │   │   └── php-prod.ini   // production specific configuration
 │   │   │   └── Dockerfile
 │   │   ├── mysql/
+│   │   │   ├── conf.d/            // MySql Configurations
+│   │   │   │   └── my.cnf         // default configuration file
 │   │   │   └── Dockerfile
 │   │   └── composer/
 │   │       └── Dockerfile
