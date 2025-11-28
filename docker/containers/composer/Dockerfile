@@ -1,9 +1,12 @@
-# CRITICAL FIX:
-# The FROM instruction now uses the alias 'base'.
-# This alias is defined in docker-compose.yml's 'additional_contexts'
-# and explicitly tells Docker to use the result of the 'php' service build
-# as the base image, fixing the build order dependency.
-FROM base
+# =====================================================================
+# Composer Dockerfile
+# ---------------------------------------------------------------------
+# docker/containers/composer/Dockerfile
+# =====================================================================
+
+# Create composer image from the 'base' image alias defined in the docker-compose.yml
+# 'additional_contexts' to point to the result of the PHP service build.
+FROM base as composer_base
 
 # Install Composer
 # This curl command fetches the installer and pipes it to PHP, installing the
@@ -13,3 +16,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Since the executable is in /usr/local/bin, it is automatically available in the container's PATH.
 # Add composer bin path to environment variable
 RUN export PATH=$PATH":/usr/bin"
+
+# Set working directory
+WORKDIR /var/www/html
