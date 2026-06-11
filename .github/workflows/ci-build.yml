@@ -14,15 +14,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    
+      # Git Checkout
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
     # Docker Credentials
     - name: Docker Login
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_KEY: ${{ secrets.DOCKER_KEY }}
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_KEY
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_KEY }}
 
     # Setting Script Permissions
     - name: Setting up Permissions
@@ -39,46 +40,7 @@ jobs:
     - name: Start Docker Containers
       run: ./scripts/up.sh -d
 
-    # TODO:
-    #  - Skipping the steps below. There is no code yet so...
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    # Composer Set-up
-    #- name: Run Composer
-    #  run: |
-    #   ./scripts/composer.sh install
-    #   ./scripts/composer.sh run post-root-package-install
-    #   ./scripts/composer.sh run post-create-project-cmd
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    #  - No resource to build yet!!!
-    # NPM Set-up
-    #- name: Run NPM
-    #  run: |
-    #    ./scripts/run.sh npm install
-    #    ./scripts/run.sh npm run build
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    #  - No PhpStan, ECS, & PhpUnit yet in this part of this template
-    # Code Quality Checking
-    #- name: Run PhpStan
-    #  run: ./scripts/composer.sh run phpstan
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    #- name: Run Easy Coding Sandards
-    #  run: ./scripts/composer.sh run ecs-all
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    #- name: Run Automated Test with PhpUnit
-    #  run: ./scripts/composer.sh run phpunit
-    #
-    # TODO: Ends Here!
-
     # Teardown routine, clean after yourself!
     - name: Teardown, stopping and removing services
+      if: always()
       run: ./scripts/down.sh -v
