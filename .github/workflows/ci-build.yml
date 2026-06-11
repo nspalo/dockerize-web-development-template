@@ -2,8 +2,10 @@ name: CI Build
 
 on:
   push:
-    branches: [ "master", "development" ]
+    # Integration / Deployment runs ONLY when code lands on the main branch.
+    branches: [ "master" ]
   pull_request:
+    # Validation runs when a PR is created, checks code quality and tests.
     branches: [ "master", "development" ]
 
 jobs:
