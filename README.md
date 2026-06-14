@@ -1,7 +1,16 @@
 # Dockerized Web Development Template
-> A simple project that aims to build a Dockerized template environment for web development
+> A ready-to-use Docker LEMP stack template for PHP web development — configurable, secure by default, and structured for real-world projects.
 
 ![CI BUILD](https://github.com/nspalo/dockerize-web-development-template/actions/workflows/ci-build.yml/badge.svg)
+
+## Features
+
+- **Multi-stage PHP build** — minimal runtime image, extensions compiled separately
+- **Compose overrides** — dev (hot-reload, debug ports) and prod (locked down, resource limits)
+- **Single config file** — one place to change PHP version, DB version, ports, environment
+- **Makefile interface** — `make help` shows all commands, no scripts to memorize
+- **Secure by default** — non-root containers, security headers, hidden files blocked, no-new-privileges
+- **Configurable** — PHP 8.4, MySQL 8.0, Node 20, all swappable via `config.env`
 
 ## Quick Start
 
@@ -30,7 +39,7 @@ All settings are controlled from a single file: `docker/environments/config.env`
 
 ```env
 SYS_ENV=dev           # Environment: dev | staging | prod
-PHP_VERSION=8.3       # PHP version
+PHP_VERSION=8.4       # PHP version
 DB_VERSION=8.0        # MySQL version
 NODE_VERSION=20       # Node.js version
 APP_PORT=80           # Web server port
