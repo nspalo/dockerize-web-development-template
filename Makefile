@@ -38,8 +38,8 @@ BUILD_DATE   := $(shell date --rfc-3339=seconds 2>/dev/null || date '+%Y-%m-%d %
 # Collection of environment variables passed into docker compose commands
 DOCKER_COMPOSE_VARS := HOST_UID=$(HOST_UID) \
                        HOST_GID=$(HOST_GID) \
-                       BUILD_COMMIT=$(BUILD_COMMIT) \
-                       BUILD_DATE=$(BUILD_DATE)
+                       BUILD_COMMIT="$(BUILD_COMMIT)" \
+                       BUILD_DATE="$(BUILD_DATE)"
 
 # Base docker compose command
 DOCKER_COMPOSE := $(DOCKER_COMPOSE_VARS) docker compose \
