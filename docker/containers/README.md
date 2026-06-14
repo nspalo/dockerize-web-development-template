@@ -13,10 +13,10 @@ my-project/                       // Main Project Directory
 │   │   │   │   └── default.conf  // default configuration file
 │   │   │   └── Dockerfile
 │   │   ├── php/
-│   │   │   ├── config/            // PHP Configurations
-│   │   │   │   └── php-local.ini  // local development configuration
-│   │   │   │   └── php-test.ini   // test/staging configuration
-│   │   │   │   └── php-prod.ini   // production specific configuration
+│   │   │   ├── config/             // PHP Configurations
+│   │   │   │   └── php-dev.ini     // development configuration
+│   │   │   │   └── php-staging.ini // staging configuration
+│   │   │   │   └── php-prod.ini    // production configuration
 │   │   │   └── Dockerfile
 │   │   ├── mysql/
 │   │   │   ├── conf.d/            // MySql Configurations

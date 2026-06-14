@@ -13,10 +13,10 @@ my-project/                       // Main Project Directory
 │   │   │   │   └── default.conf  // default configuration file
 │   │   │   └── Dockerfile
 │   │   ├── php/
-│   │   │   ├── config/            // PHP Configurations
-│   │   │   │   └── php-local.ini  // local development configuration
-│   │   │   │   └── php-test.ini   // test/staging configuration
-│   │   │   │   └── php-prod.ini   // production specific configuration
+│   │   │   ├── config/             // PHP Configurations
+│   │   │   │   └── php-dev.ini     // development configuration
+│   │   │   │   └── php-staging.ini // staging configuration
+│   │   │   │   └── php-prod.ini    // production configuration
 │   │   │   └── Dockerfile
 │   │   ├── mysql/
 │   │   │   ├── conf.d/            // MySql Configurations
@@ -25,16 +25,12 @@ my-project/                       // Main Project Directory
 │   │   └── composer/
 │   │       └── Dockerfile
 │   ├── environments/              // Environment variables
-│   │   ├── config.env             // Main config file
-│   │   ├── local.env              // Environment config file
-│   │   ├── test.env
-│   │   └── prod.env
-│   ├── volumes/                   // Volumes Dir - Data persistence
-│   │   ├── mysql/                 // Database
-│   │   │   └── mysql_<version>/   // Specific database version
-│   │   └── logs/                  // Logs
-│   │       ├── nginx/
-│   │       └── php/
-│   └── docker-compose.yml         // Main Docker compose file
+│   │   ├── config.env             // Main config file (single control panel)
+│   │   ├── dev.env                // Development credentials
+│   │   ├── staging.env            // Staging credentials
+│   │   └── prod.env               // Production credentials
+│   ├── docker-compose.yml         // Base Docker compose file
+│   ├── docker-compose.dev.yml     // Development override
+│   └── docker-compose.prod.yml    // Production override
 └── ...
 ```

@@ -1,30 +1,29 @@
 # Environments Directory
-- This directory contains `.env` file for environment variables
+- This directory contains `.env` files for environment-specific variables
 
 ## Directory Structure
-- Below is an overview of how the project directory structure would look like.
-- Add / Remove / Rename according to the needs or liking or whatever make sense.
 ```
-my-project/                       // Main Project Directory
-├── docker/                       // Docker Related
+my-project/
+├── docker/
 │   ├── ...
-│   ├── environments/              // Environment variables
-│   │   ├── config.env             // Main config file
-│   │   ├── local.env              // Local Database credentials or configs
-│   │   ├── test.env               // Test/Staging Database credentials or configs
-│   │   └── prod.env               // Prod Database credentials or configs
+│   ├── environments/
+│   │   ├── config.env       // Main config (single control panel)
+│   │   ├── dev.env          // Development database credentials
+│   │   ├── staging.env      // Staging database credentials
+│   │   └── prod.env         // Production database credentials
 │   └── ...
 └── ...
 ```
 
 ### config.env
-- Main config
+- Single control panel for the entire template
+- Set `SYS_ENV` to `dev`, `staging`, or `prod`
 
-### local.env
-- Local
+### dev.env
+- Development database credentials (pre-filled for convenience)
 
 ### staging.env
-- Staging
+- Staging database credentials (fill in per deployment)
 
 ### prod.env
-- Prod
+- Production database credentials (fill in per deployment)

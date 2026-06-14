@@ -2,8 +2,10 @@ name: CI Build
 
 on:
   push:
-    branches: [ "master", "development" ]
+    # Integration / Deployment runs ONLY when code lands on the main branch.
+    branches: [ "master" ]
   pull_request:
+    # Validation runs when a PR is created, checks code quality and tests.
     branches: [ "master", "development" ]
 
 jobs:
@@ -12,71 +14,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    
+      # Git Checkout
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
     # Docker Credentials
     - name: Docker Login
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_KEY: ${{ secrets.DOCKER_KEY }}
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_KEY
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_KEY }}
 
-    # Setting Script Permissions
-    - name: Setting up Permissions
-      run: |
-        chmod +x -R ./scripts/*.sh
-        # mkdir -p ./storage/logs/ ./bootstrap/cache/ # Skipping, there is no dir structure yet
-        # chmod 777 ./storage/ ./bootstrap/cache -R   # Yup, same with this one
+    # Set up environment file for Docker Compose
+    - name: Set up environment
+      run: cp docker/environments/dev.env.example docker/environments/dev.env
 
-    # Building Docker Images and Service Containers
-    - name: Building Docker Images
-      run: ./scripts/build.sh
+    # Building Docker Images
+    - name: Build Docker Images
+      run: make build
 
-    # Docker Containers
+    # Start Containers
     - name: Start Docker Containers
-      run: ./scripts/up.sh -d
+      run: make up
 
-    # TODO:
-    #  - Skipping the steps below. There is no code yet so...
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    # Composer Set-up
-    #- name: Run Composer
-    #  run: |
-    #   ./scripts/composer.sh install
-    #   ./scripts/composer.sh run post-root-package-install
-    #   ./scripts/composer.sh run post-create-project-cmd
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    #  - No resource to build yet!!!
-    # NPM Set-up
-    #- name: Run NPM
-    #  run: |
-    #    ./scripts/run.sh npm install
-    #    ./scripts/run.sh npm run build
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    #  - No PhpStan, ECS, & PhpUnit yet in this part of this template
-    # Code Quality Checking
-    #- name: Run PhpStan
-    #  run: ./scripts/composer.sh run phpstan
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    #- name: Run Easy Coding Sandards
-    #  run: ./scripts/composer.sh run ecs-all
-    #
-    # TODO:
-    #  - This section is not needed yet!
-    #- name: Run Automated Test with PhpUnit
-    #  run: ./scripts/composer.sh run phpunit
-    #
-    # TODO: Ends Here!
+    # Smoke test — verify PHP is running
+    - name: Smoke Test
+      run: docker exec php php -v
 
     # Teardown routine, clean after yourself!
-    - name: Teardown, stopping and removing services
-      run: ./scripts/down.sh -v
+    - name: Teardown
+      if: always()
+      run: make down-v
