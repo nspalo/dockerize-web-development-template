@@ -8,9 +8,6 @@ Homestead.yaml
 Homestead.json
 node_modules/
 
-# Docker Volumes
-/docker/volumes/
-
 # Environment files (contain credentials)
 # Only .example files are committed
 /docker/environments/dev.env

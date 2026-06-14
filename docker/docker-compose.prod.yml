@@ -9,20 +9,28 @@
 #   - Restart policies on all services
 #   - Resource limits to prevent runaway containers
 #   - Health checks for reliability
+#   - Read-only filesystems where possible
+#   - Security options (no new privileges)
 # ===========================================================================
 
 services:
   webserver:
     ports:
-      - "${APP_PORT}:80"
+      - "${APP_PORT}:8080"
     restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+    security_opt:
+      - no-new-privileges:true
     deploy:
       resources:
         limits:
           memory: 256M
           cpus: "0.50"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -35,6 +43,11 @@ services:
         PHP_VERSION: "${PHP_VERSION}"
         SYS_ENV: "${SYS_ENV}"
     restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
     deploy:
       resources:
         limits:
@@ -45,6 +58,8 @@ services:
 
   database:
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     deploy:
       resources:
         limits:
