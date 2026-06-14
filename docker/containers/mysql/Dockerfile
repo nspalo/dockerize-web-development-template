@@ -4,10 +4,12 @@
 # docker/containers/mysql/Dockerfile
 #=====================================================================
 
-# Install MySQL
-FROM mysql:5.7.22
+# Build argument for MySQL version (passed from docker-compose.yml)
+ARG DB_VERSION=8.0
 
-# Copy MySQL configuration
+FROM mysql:${DB_VERSION}
+
+# Copy custom MySQL configuration
 COPY ./containers/mysql/conf.d/my.cnf /etc/mysql/conf.d/my.cnf
 
 EXPOSE 3306
