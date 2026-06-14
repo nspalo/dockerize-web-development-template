@@ -14,7 +14,7 @@
 # This stage installs system dependencies, compiles PHP extensions,
 # and prepares tools. It is NOT included in the final image.
 # =====================================================================
-ARG PHP_VERSION=8.3
+ARG PHP_VERSION=8.4
 FROM php:${PHP_VERSION}-fpm-alpine AS builder
 
 WORKDIR /var/www/html
