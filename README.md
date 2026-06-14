@@ -90,7 +90,6 @@ my-project/
 │   ├── docker-compose.yml         // Base compose (shared)
 │   ├── docker-compose.dev.yml     // Dev override (volumes, debug ports)
 │   └── docker-compose.prod.yml    // Prod override (locked down)
-├── scripts/                       // Shell scripts (legacy, use Makefile)
 ├── src/                           // Your application source code
 │   └── public/
 │       └── index.php
