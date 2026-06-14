@@ -4,8 +4,8 @@
 ![CI BUILD](https://github.com/nspalo/dockerize-web-development-template/actions/workflows/ci-build.yml/badge.svg)
 
 ## Directory Structure
-- Below is an overview of how the project directory structure would look like.
-- Add / Remove / Rename according to the needs or liking or whatever make sense.
+- Below is an overview of how the project directory structure should look.
+- Feel free to add, remove, or rename directories according to your needs or preferences, or whatever makes the most sense.
 ```
 my-project/                        // Main Project Directory
 ├── docker/                        // Docker Related
@@ -15,10 +15,10 @@ my-project/                        // Main Project Directory
 │   │   │   │   └── default.conf  // default configuration file
 │   │   │   └── Dockerfile
 │   │   ├── php/
-│   │   │   ├── config/            // PHP Configurations
-│   │   │   │   └── php-local.ini  // local development configuration
-│   │   │   │   └── php-test.ini   // test/staging configuration
-│   │   │   │   └── php-prod.ini   // production specific configuration
+│   │   │   ├── config/             // PHP Configurations
+│   │   │   │   └── php-dev.ini     // development configuration
+│   │   │   │   └── php-staging.ini // staging configuration
+│   │   │   │   └── php-prod.ini    // production configuration
 │   │   │   └── Dockerfile
 │   │   ├── mysql/
 │   │   │   ├── conf.d/            // MySql Configurations
@@ -27,20 +27,16 @@ my-project/                        // Main Project Directory
 │   │   └── composer/
 │   │       └── Dockerfile
 │   ├── environments/              // Environment variables
-│   │   ├── config.env             // Main config file
-│   │   ├── local.env              // Local development
-│   │   ├── test.env
-│   │   └── prod.env
-│   ├── volumes/                   // Volumes Dir - Data persistence
-│   │   ├── mysql/                 // Database
-│   │   │   └── mysql_<version>/   // Specific database version
-│   │   └── logs/                  // Logs
-│   │       ├── nginx/
-│   │       └── php/
-│   └── docker-compose.yml         // Main Docker compose file
-├── scripts/                       // This should contains all *.sh files 
+│   │   ├── config.env             // Main config file (single control panel)
+│   │   ├── dev.env                // Development credentials
+│   │   ├── staging.env            // Staging credentials
+│   │   └── prod.env               // Production credentials
+│   ├── docker-compose.yml         // Base Docker compose file
+│   ├── docker-compose.dev.yml     // Development override
+│   └── docker-compose.prod.yml    // Production override
+├── scripts/                       // This should contains all *.sh files
 │   ├── main-docker-compose.sh     // Main script that executes the base docker commands
-│   ├── build.sh                   // Build the docker images 
+│   ├── build.sh                   // Build the docker images
 │   ├── up.sh                      // Start the service
 │   ├── down.sh                    // Tear down routine
 │   ├── stop.sh                    // Stop running service
@@ -62,9 +58,9 @@ my-project/                        // Main Project Directory
 
 
 ## Service containers
-> <b>Note:</b>  
-> Check `docker/environment/config.env` for configurations.  
-> For environment specific configurations check `local.env`, `test.env`, and `prod.env` files
+> <b>Note:</b>
+> Check `docker/environments/config.env` for configurations.
+> Set `SYS_ENV` to `dev`, `staging`, or `prod` to switch environments.
 
 Building, Running, Stopping, Removing images and service containers
 - scripts have been prepared to make these process user easy

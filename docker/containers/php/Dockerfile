@@ -59,7 +59,7 @@ COPY --from=composer:2.7 /usr/bin/composer /usr/local/bin/composer
 # =====================================================================
 FROM php:${PHP_VERSION}-fpm-alpine AS runtime
 
-ARG SYS_ENV=local
+ARG SYS_ENV=dev
 
 WORKDIR /var/www/html
 
