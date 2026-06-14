@@ -1,0 +1,59 @@
+# ===========================================================================
+# PRODUCTION OVERRIDE
+# ---------------------------------------------------------------------------
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
+#
+# This override:
+#   - Exposes ONLY the web port (no PHP/MySQL ports on host)
+#   - No volume mounts (code is baked into the image)
+#   - Restart policies on all services
+#   - Resource limits to prevent runaway containers
+#   - Health checks for reliability
+# ===========================================================================
+
+services:
+  webserver:
+    ports:
+      - "${APP_PORT}:80"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: "0.50"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+  php:
+    build:
+      target: runtime
+      args:
+        PHP_VERSION: "${PHP_VERSION}"
+        SYS_ENV: "${SYS_ENV}"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.00"
+    # No ports exposed — only accessible via nginx on the internal network
+    # No volume mounts — code is baked into the image via Dockerfile
+
+  database:
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: "1.00"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 5
+    # No ports exposed — only accessible from PHP on the internal network

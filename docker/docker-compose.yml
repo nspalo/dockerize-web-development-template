@@ -1,4 +1,12 @@
 # Dockerize Web Development Template (DWDT)
+# ===========================================================================
+# BASE CONFIGURATION
+# ---------------------------------------------------------------------------
+# This file contains settings common to ALL environments.
+# It is always combined with an environment-specific override file:
+#   Development: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+#   Production:  docker compose -f docker-compose.yml -f docker-compose.prod.yml up
+# ===========================================================================
 
 # =====================================================================
 # 1. NETWORKS
@@ -23,16 +31,6 @@ services:
       context: .
       dockerfile: containers/nginx/Dockerfile
     image: nginx:nginx-stable-alpine
-    ports:
-      - "${APP_PORT}:80"
-    volumes:
-      - "${PATH_CONTAINERS}/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf"
-      - nginx_logs:/var/log/nginx
-      - "${PATH_SOURCE_LOCAL}:${PATH_SOURCE_LIVE}"
-      # Vendor volume overlay
-      - vendor_data:/var/www/html/vendor
-      # Node Modules volume overlay
-      - node_modules_data:/var/www/html/node_modules
     depends_on:
       - php
       - database
@@ -47,16 +45,10 @@ services:
     build:
       context: .
       dockerfile: containers/php/Dockerfile
-      target: runtime
       args:
         PHP_VERSION: "${PHP_VERSION}"
         SYS_ENV: "${SYS_ENV}"
     image: php:php-${PHP_VERSION}-fpm-alpine
-    ports:
-      - "${PHP_PORT}:9000"
-    volumes:
-      - "${PATH_CONTAINERS}/php/config/php-${SYS_ENV}.ini:/usr/local/etc/php/conf.d/99-custom.ini"
-      - "${PATH_SOURCE_LOCAL}:${PATH_SOURCE_LIVE}"
 
   # +----------------------+ #
   # | Container: MySQL     | #
@@ -71,10 +63,6 @@ services:
       args:
         DB_VERSION: "${DB_VERSION}"
     image: mysql:mysql-${DB_VERSION}
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "${DB_PORT}:3306"
     env_file:
       - "${PATH_ENVIRONMENTS}/${SYS_ENV}.env"
     volumes:
@@ -124,45 +112,12 @@ services:
       - php
     entrypoint: ['npm']
 
-#  # +----------------------+ #
-#  # | Container: Artisan   | #
-#  # +----------------------+ #
-#  artisan:
-#    networks:
-#      - web-app
-#    container_name: artisan
-#    build:
-#      context: .
-#      dockerfile: containers/php/Dockerfile
-#      # FIX: This crucial block forces the 'php' service to be built first,
-#      # and makes the resulting image available to artisan container
-#      additional_contexts:
-#        base: service:php
-#    image: artisan:laravel-XXX # name it with whatever that makes sense for you
-#    links:
-#      - php
-#      - database
-#    env_file:
-#      - ${PATH_ENVIRONMENTS}/${SYS_ENV}.env
-#    working_dir: /var/www/html
-#    volumes:
-#      - "${PATH_SOURCE_LOCAL}:${PATH_SOURCE_LIVE}"
-#      # Must include vendor data so Artisan can execute PHP dependencies
-#      - vendor_data:/var/www/html/vendor
-#    depends_on:
-#      - php
-#      - database
-#    entrypoint: ['php', '/var/www/html/artisan']
-
 # =====================================================================
 # 3. VOLUMES
 # =====================================================================
 volumes:
   # MySQL data persistence
   mysql_data:
-    driver: local
-  # Nginx logs
-  nginx_logs:
     driver: local
   # Composer dependencies (vendor folder)
   vendor_data:
